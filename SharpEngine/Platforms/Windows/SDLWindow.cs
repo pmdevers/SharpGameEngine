@@ -49,6 +49,7 @@ namespace SharpEngine.Platforms.Windows
 
         public static Window Create(WindowProperties properties)
         {
+            Input._instance = new SDLInput();
             return new SDLWIndow(properties.Title, properties.Width, properties.Height);
         }
 
@@ -64,7 +65,12 @@ namespace SharpEngine.Platforms.Windows
 
         public override void OnUpdate()
         {
+            var inputManager = (SDLInput)Input._instance;
             SDL.SDL_Event e;
+
+            var keys = new List<int>();
+            var mouseButtons = new List<int>();
+
             while (SDL.SDL_PollEvent(out e) > 0){
 
                 switch (e.type)
@@ -79,9 +85,11 @@ namespace SharpEngine.Platforms.Windows
                     case SDL.SDL_EventType.SDL_SYSWMEVENT:
                         break;
                     case SDL.SDL_EventType.SDL_KEYDOWN:
+                        keys.Add((int)e.key.keysym.sym);
                         _eventCallBack.Invoke(new KeyPressedEvent((int)e.key.keysym.sym, e.key.repeat));
                         break;
                     case SDL.SDL_EventType.SDL_KEYUP:
+                        keys.Remove((int)e.key.keysym.sym);
                         _eventCallBack.Invoke(new KeyReleaseEvent((int)e.key.keysym.sym));
                         break;
                     case SDL.SDL_EventType.SDL_TEXTEDITING:
@@ -92,9 +100,11 @@ namespace SharpEngine.Platforms.Windows
                         _eventCallBack.Invoke(new MouseMovedEvent(e.motion.x, e.motion.y));
                         break;
                     case SDL.SDL_EventType.SDL_MOUSEBUTTONDOWN:
+                        inputManager.MouseClick(e.button.button);
                         _eventCallBack.Invoke(new MouseButtonPressedEvent(e.button.button));
                         break;
                     case SDL.SDL_EventType.SDL_MOUSEBUTTONUP:
+                        inputManager.MouseRelease(e.button.button);
                         _eventCallBack.Invoke(new MouseButtonReleasedEvent(e.button.button));
                         break;
                     case SDL.SDL_EventType.SDL_MOUSEWHEEL:
@@ -147,6 +157,7 @@ namespace SharpEngine.Platforms.Windows
                 }
             }
 
+            inputManager.SetKeys(keys);
             SDL.SDL_GL_SwapWindow(_window);
 
         }

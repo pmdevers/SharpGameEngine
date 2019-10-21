@@ -1,4 +1,5 @@
 ﻿using OpenGL;
+using SharpEngine.Events;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -181,62 +182,62 @@ namespace SharpEngine.GUI
             set;
         }
 
-        //public static bool OnMouseMove(int x, int y)
-        //{
-        //    UIElement lastSelection = currentSelection;
-        //    MousePosition = new Click(x, y, false, false, false, false);
-        //    Point position = new Point(MousePosition.X, MousePosition.Y);
+        public static bool OnMouseMove(MouseMovedEvent e)
+        {
+            UIElement lastSelection = currentSelection;
+            //MousePosition = new Click(x, y, false, false, false, false);
+            Point position = new Point((int)e.MouseX, (int)e.MouseY);
 
-        //    if (currentSelection != null && currentSelection.OnMouseMove != null) currentSelection.OnMouseMove(null, new MouseEventArgs(MousePosition, LastMousePosition));
+            //if (currentSelection != null && currentSelection.OnMouseMove != null) currentSelection.OnMouseMove(null, new MouseEventArgs(MousePosition, LastMousePosition));
 
-        //    if (UI.Pick(position))
-        //        currentSelection = UI.Selection;
-        //    else currentSelection = null;
+            if (UI.Pick(position))
+                currentSelection = UI.Selection;
+            else currentSelection = null;
 
-        //    if (currentSelection != lastSelection)
-        //    {
-        //        if (lastSelection != null && lastSelection.OnMouseLeave != null) lastSelection.OnMouseLeave(null, new MouseEventArgs(MousePosition, LastMousePosition));
-        //        if (currentSelection != null && currentSelection.OnMouseEnter != null) currentSelection.OnMouseEnter(null, new MouseEventArgs(MousePosition, LastMousePosition));
-        //    }
+            //if (currentSelection != lastSelection)
+            //{
+            //    if (lastSelection != null && lastSelection.OnMouseLeave != null) lastSelection.OnMouseLeave(null, new MouseEventArgs(MousePosition, LastMousePosition));
+            //    if (currentSelection != null && currentSelection.OnMouseEnter != null) currentSelection.OnMouseEnter(null, new MouseEventArgs(MousePosition, LastMousePosition));
+            //}
 
-        //    return (currentSelection != null);
-        //}
+            return (currentSelection != null);
+        }
 
-        //public static bool OnMouseClick(int button, int state, int x, int y)
-        //{
-        //    MousePosition = new Click(x, y, (MouseButton)button, (MouseState)state);
+        public static bool OnMouseClick(MouseButtonEvent e)
+        {
+            //MousePosition = new Click(x, y, (MouseButton)button, (MouseState)state);
 
-        //    // call OnLoseFocus if a control lost focus
-        //    if (MousePosition.State == MouseState.Down)
-        //    {
-        //        if (Focus != null && currentSelection != Focus && Focus.OnLoseFocus != null) Focus.OnLoseFocus(null, currentSelection);
-        //        Focus = currentSelection;
-        //    }
+            // call OnLoseFocus if a control lost focus
+            if (e is MouseButtonPressedEvent)
+            {
+                if (Focus != null && currentSelection != Focus && Focus.OnLoseFocus != null) Focus.OnLoseFocus(null, currentSelection);
+                Focus = currentSelection;
+            }
 
-        //    if (activeSelection != null && MousePosition.State == MouseState.Up)
-        //    {
-        //        // if mouseup while a pickable object is active
-        //        if (activeSelection.OnMouseUp != null) activeSelection.OnMouseUp(null, new MouseEventArgs(MousePosition, LastMousePosition));
-        //        activeSelection = null;
-        //    }
-        //    else if (currentSelection != null && !(currentSelection is UIContainer))
-        //    {
-        //        // if the mouse is current over a pickable object and clicks
-        //        if (MousePosition.State == MouseState.Down)
-        //        {
-        //            if (currentSelection.OnMouseDown != null) currentSelection.OnMouseDown(null, new MouseEventArgs(MousePosition, LastMousePosition));
-        //            activeSelection = currentSelection;
-        //        }
-        //        else
-        //        {
-        //            if (currentSelection.OnMouseUp != null) currentSelection.OnMouseUp(null, new MouseEventArgs(MousePosition, LastMousePosition));
-        //            activeSelection = null;
-        //        }
-        //        if (currentSelection.OnMouseClick != null) currentSelection.OnMouseClick(null, new MouseEventArgs(MousePosition, LastMousePosition));
-        //    }
+            if (activeSelection != null && e is MouseButtonReleasedEvent)
+            {
+                // if mouseup while a pickable object is active
+                //if (activeSelection.OnMouseUp != null) activeSelection.OnMouseUp(null, new MouseEventArgs(MousePosition, LastMousePosition));
+                activeSelection = null;
+            }
+            else if (currentSelection != null && !(currentSelection is UIContainer))
+            {
+                // if the mouse is current over a pickable object and clicks
+                if (e is MouseButtonPressedEvent)
+                {
+                    //if (currentSelection.OnMouseDown != null) currentSelection.OnMouseDown(null, new MouseEventArgs(MousePosition, LastMousePosition));
+                    activeSelection = currentSelection;
+                }
+                else
+                {
+                    //if (currentSelection.OnMouseUp != null) currentSelection.OnMouseUp(null, new MouseEventArgs(MousePosition, LastMousePosition));
+                    activeSelection = null;
+                }
+                //if (currentSelection.OnMouseClick != null) currentSelection.OnMouseClick(null, new MouseEventArgs(MousePosition, LastMousePosition));
+            }
 
-        //    return (activeSelection != null);
-        //}
+            return (activeSelection != null);
+        }
         #endregion
 
         #region Keyboard Callbacks

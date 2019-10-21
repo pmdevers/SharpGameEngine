@@ -16,6 +16,7 @@ namespace SharpEngine
             _instance = this;
             _layerStack = new LayerStack();
             _window = SDLWIndow.Create(new WindowProperties());
+            
             _window.SetEventCallBack(OnEvent);
         }
 
@@ -29,10 +30,9 @@ namespace SharpEngine
         private bool _isRunnig = true;
         public void Run()
         {
-           
+
             while (_isRunnig)
             {
-
                 
                 foreach (var layer in _layerStack)
                 {

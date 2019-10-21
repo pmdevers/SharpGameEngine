@@ -1,8 +1,5 @@
 ﻿using SharpEngine;
 using SharpEngine.Debug;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SandBox
 {
@@ -11,7 +8,7 @@ namespace SandBox
         public Game()
         {
             this.PushLayer(new ExampleLayer());
-            this.PushOverlay(new ImGuiLayer());
+            this.PushOverlay(new DebugLayer());
         }
     }
 }
