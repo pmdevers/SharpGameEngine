@@ -31,6 +31,11 @@ namespace SharpEngine.Events
         }
     }
 
+    public class WindowMinimizedEvent : Event
+    {
+        public WindowMinimizedEvent() { }
+    }
+
     public class AppTickEvent : Event
     {
         public override EventCategory GategoryFlags => EventCategory.Application;

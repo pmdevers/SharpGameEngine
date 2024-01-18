@@ -1,5 +1,6 @@
 ﻿using OpenGL;
 using System;
+using static SharpEngine.GUI.Controls.Text;
 
 
 namespace SharpEngine.GUI.Controls
@@ -15,6 +16,7 @@ namespace SharpEngine.GUI.Controls
         #region Text Support
         private Text text;
         private BMFont font;
+        private FontSize fontSize;
         private string textString;
 
         public BMFont Font
@@ -25,6 +27,15 @@ namespace SharpEngine.GUI.Controls
                 if (text != null) text.Dispose();
                 font = value;
                 if (textString != null && textString.Length != 0) text = new Text(Shaders.FontShader, font, textString, BMFont.Justification.Center);
+            }
+        }
+
+        public FontSize FontSize 
+        { 
+            get {  return fontSize; }
+            set {
+                fontSize = value;
+                Font = FontFromSize(fontSize);
             }
         }
 
@@ -65,6 +76,7 @@ namespace SharpEngine.GUI.Controls
 
             this.RelativeTo = Corner.TopLeft;
             this.Size = new Point(width, height);
+            FontSize = FontSize._24pt;
         }
         #endregion
 

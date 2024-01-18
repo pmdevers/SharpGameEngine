@@ -143,7 +143,7 @@ namespace SharpEngine.GUI.Controls
         {
             int vertexCount = Math.Min(count * 6, VAO.VertexCount);
 
-            Gl.ActiveTexture(TextureUnit.Texture0);
+            Gl.ActiveTexture(0);
             Gl.BindTexture(bitmapFont.FontTexture);
 
             Gl.Enable(EnableCap.Blend);
@@ -161,7 +161,7 @@ namespace SharpEngine.GUI.Controls
         {
             base.Draw();
 
-            Gl.ActiveTexture(TextureUnit.Texture0);
+            Gl.ActiveTexture(0);
             Gl.BindTexture(bitmapFont.FontTexture);
 
             int yoffset = 0;

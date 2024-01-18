@@ -2,12 +2,22 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <StartupObject>SandBox.Program</StartupObject>
     <Platforms>AnyCPU;x64</Platforms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Shaders\default.shader" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SharpEngine.Platform\SharpEngine.Platform.csproj" />
     <ProjectReference Include="..\SharpEngine\SharpEngine.csproj" />
   </ItemGroup>
 

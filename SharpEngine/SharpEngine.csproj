@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Platforms>AnyCPU;x64</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -12,33 +12,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="SDL\MiniTK\**" />
-    <EmbeddedResource Remove="SDL\MiniTK\**" />
-    <None Remove="SDL\MiniTK\**" />
+    <Compile Remove="DebugLayer\**" />
+    <Compile Remove="GUI\**" />
+    <EmbeddedResource Remove="DebugLayer\**" />
+    <EmbeddedResource Remove="GUI\**" />
+    <None Remove="DebugLayer\**" />
+    <None Remove="GUI\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Platforms\Windows\WindowsWindow.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="fonts\font24.fnt">
+    <None Update="fonts\*.*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="fonts\font24.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="SDL2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Input\" />
+    <Folder Include="Maths\" />
   </ItemGroup>
   
 </Project>

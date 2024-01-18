@@ -1,5 +1,4 @@
-﻿using OpenGL;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -236,7 +235,7 @@ namespace SharpEngine.GUI
                     uiQuad.DisposeChildren = true;
                     uiQuad.Dispose();
                 }
-                uiQuad = OpenGL.Geometry.CreateQuad(Shaders.SolidUIShader, Vector2.Zero, new Vector2(Size.X, Size.Y), Vector2.Zero, new Vector2(1, 1));
+                uiQuad = OpenGL.Geometry.CreateQuad(Shaders.GradientShader, Vector2.Zero, new Vector2(Size.X, Size.Y), Vector2.Zero, new Vector2(1, 1));
             }
 
             Invalidate();

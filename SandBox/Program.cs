@@ -1,7 +1,4 @@
-﻿using SharpEngine;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SharpEngine.Core;
 
 namespace SandBox
 {

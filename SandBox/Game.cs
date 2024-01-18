@@ -1,14 +1,16 @@
-﻿using SharpEngine;
-using SharpEngine.Debug;
+﻿using SharpEngine.Core;
+using SharpEngine.Platform.OpenGL;
+using SharpEngine.Platform.Windows;
 
 namespace SandBox
 {
-    public class Game : Application
+    public class Game : Application<OpenTKWindow>
     {
-        public Game()
+        public Game() : base(new WindowProperties() {  Title ="Hello World!" })
         {
-            this.PushLayer(new ExampleLayer());
-            this.PushOverlay(new DebugLayer());
-        }
+            
+            PushLayer(new ExampleLayer());
+            //PushOverlay(new DebugLayer());
+        }       
     }
 }
